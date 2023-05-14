@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<style>
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+body {
+  text-align: center;
+}
+h1 {
+  margin: 20px 0;
+  padding: 12px;
+}
+.form {
+  width: 100%;
+  margin: 0 auto;
+}
+.input {
+  width: 100%;
+  padding: 12px;
+  resize: vertical;
+  clear: both;
+}
+</style>
+</head>
+<html lang="ja">
+  <body>
+    <h1>Options</h1>
+    <form id="optionsForm" class="form">
+      <div class="input">
+        <label for="language">Output Language:</label>
+        <!-- TODO: build from constant -->
+        <select id="language">
+          <option value="english">English</option>
+          <option value="japanese">日本語</option>
+          <option value="chinese">中文</option>
+          <option value="korean">한국어</option>
+          <option value="thai">ภาษาไทย</option>
+          <option value="vietnamese">Tiếng Việt</option>
+        </select>
+      </div>
+      <div class="input">
+        <label for="apiType">API Type:</label>
+        <select id="apiType">
+          <option value="openai">OpenAI</option>
+          <option value="azure">Azure</option>
+        </select>
+      </div>
+      <div class="input">
+        <label for="apiKey">API Key:</label>
+        <input type="text" id="apiKey">
+      </div>
+      <div class="input">
+        <label for="model">Model:</label>
+        <select id="model">
+        </select>
+      </div>
+      <div class="input onlyAzure">
+        <label for="endpoint">Endpoint:</label>
+        <input type="text" id="endpoint">
+      </div>
+      <div class="input">
+        <input type="button" id="saveButton" value="Save">
+      </div>
+    </form>
+    <script src="options.js"></script>
+  </body>
+</html>

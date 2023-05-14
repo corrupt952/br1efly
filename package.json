@@ -1,0 +1,22 @@
+{
+  "name": "br1efly",
+  "private": true,
+  "version": "0.0.1",
+  "description": "The respository for chrome extension to perform various operations using OpenAI or Azure OpenAI Service",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && npm run build-background && npm run build-popup && npm run build-options && npm run build-content",
+    "build-background": "tsc && BUILD_TARGET=src/background.ts vite build",
+    "build-popup": "tsc && BUILD_TARGET=src/popup.ts vite build",
+    "build-options": "tsc && BUILD_TARGET=src/options.ts vite build",
+    "build-content": "tsc && BUILD_TARGET=src/content.ts vite build"
+  },
+  "author": "K@zuki.",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chrome": "^0.0.235",
+    "glob": "^10.2.3",
+    "typescript": "^5.0.4",
+    "vite": "^4.3.5"
+  }
+}

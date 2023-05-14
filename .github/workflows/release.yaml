@@ -1,0 +1,54 @@
+name: Release
+
+concurrency:
+  group: "release"
+  cancel-in-progress: true
+
+on:
+  push:
+    tags:
+    - 'v*'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 19
+      - run: npm ci
+      - run: npm run build
+      - run: >-
+          cd dist && \
+            zip -r ../br1efly.zip ./*
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: br1efly.zip
+          asset_name: br1efly-${{ github.ref }}.zip
+          asset_content_type: application/zip
