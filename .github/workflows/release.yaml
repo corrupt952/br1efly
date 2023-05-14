@@ -10,9 +10,8 @@ on:
     - 'v*'
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
+  id-token: read
 
 defaults:
   run:
@@ -33,6 +32,7 @@ jobs:
       - run: >-
           cd dist && \
             zip -r ../br1efly.zip ./*
+      # TODO: replace with maintained actions
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
