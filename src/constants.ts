@@ -1,4 +1,4 @@
-import { ContextMenu, ModelMap, PromptMap } from "./types";
+import { ContextMenu, Prompt } from "./types";
 
 export const LANGUAGES = [
   "english",
@@ -17,7 +17,11 @@ export const CONFIG_NAMES: string[] = [
   "endpoint",
 ];
 
-export const MODELS: ModelMap = {
+export const MODELS: {
+  [key: string]: string[];
+  openai: string[];
+  azure: string[];
+} = {
   // https://platform.openai.com/docs/models/model-endpoint-compatibility
   openai: [
     "gpt-3.5-turbo",
@@ -133,42 +137,42 @@ export const DEFAULT_CONTEXT_MENUS: ContextMenu[] = [
         children: [
           {
             id: "draw_mermaid_flowchart",
-            title: "Mermaid Flowchart",
+            title: "Mermaid.js Flowchart",
             contexts: ["selection"],
           },
           {
             id: "draw_mermaid_sequence_diagram",
-            title: "Mermaid Sequence Diagram",
+            title: "Mermaid.js Sequence Diagram",
             contexts: ["selection"],
           },
           {
             id: "draw_mermaid_gantt_diagram",
-            title: "Mermaid Gantt Diagram",
+            title: "Mermaid.js Gantt Diagram",
             contexts: ["selection"],
           },
           {
             id: "draw_mermaid_class_diagram",
-            title: "Mermaid Class Diagram",
+            title: "Mermaid.js Class Diagram",
             contexts: ["selection"],
           },
           {
             id: "draw_mermaid_git_graph",
-            title: "Mermaid Git Graph",
+            title: "Mermaid.js Git Graph",
             contexts: ["selection"],
           },
           {
             id: "draw_mermaid_erd",
-            title: "Mermaid ERD",
+            title: "Mermaid.js ERD",
             contexts: ["selection"],
           },
           {
             id: "draw_mermaid_user_journey_diagram",
-            title: "Mermaid User Journey Diagram",
+            title: "Mermaid.js User Journey Diagram",
             contexts: ["selection"],
           },
           {
             id: "draw_mermaid_pie_chart",
-            title: "Mermaid Pie Chart",
+            title: "Mermaid.js Pie Chart",
             contexts: ["selection"],
           },
         ],
@@ -177,37 +181,125 @@ export const DEFAULT_CONTEXT_MENUS: ContextMenu[] = [
   },
 ];
 
-export const DEFAULT_PROMPTS: PromptMap = {
-  summarize: "Please summarize the following in one line.",
-  paraphrase: "Please suggest three bulleted paraphrases of the following.",
-  detect_language: "Please detect the language of the following.",
-  counterproposal: "Please suggest a counterproposal to the following.",
-  proofreading: "Please proofread the following.",
+export const DEFAULT_PROMPT = {
+  translate: true,
+  parameters: {
+    top_p: 0.8,
+  },
+};
+
+export const DEFAULT_PROMPTS: { [key: string]: Prompt } = {
+  summarize: {
+    ...DEFAULT_PROMPT,
+    message: "Please summarize the following in one line.",
+    translate: true,
+  },
+  paraphrase: {
+    ...DEFAULT_PROMPT,
+    message: "Please suggest three bulleted paraphrases of the following.",
+    translate: true,
+  },
+  detect_language: {
+    ...DEFAULT_PROMPT,
+    message: "Please detect the language of the following.",
+    translate: true,
+  },
+  counterproposal: {
+    ...DEFAULT_PROMPT,
+    message: "Please suggest a counterproposal to the following.",
+    translate: true,
+  },
+  proofreading: {
+    ...DEFAULT_PROMPT,
+    message: "Please proofread the following.",
+    translate: true,
+  },
   // Convert
-  convert_to_markdown: "Please convert the following to Markdown.",
-  convert_to_json: "Please convert the following to JSON.",
-  convert_to_yaml: "Please convert the following to YAML.",
-  // Draw
-  draw_mermaid_flowchart: "Please draw a Mermaid flowchart according to the following requirements.",
-  draw_mermaid_sequence_diagram: "Please draw a Mermaid sequence diagram according to the following requirements.",
-  draw_mermaid_gantt_diagram: "Please draw a Mermaid Gantt diagram according to the following requirements.",
-  draw_mermaid_class_diagram: "Please draw a Mermaid class diagram according to the following requirements.",
-  draw_mermaid_git_graph: "Please draw a Mermaid Git graph according to the following requirements.",
-  draw_mermaid_erd: "Please draw a Mermaid ERD according to the following requirements.",
-  draw_mermaid_user_journey_diagram: "Please draw a Mermaid user journey diagram according to the following requirements.",
-  draw_mermaid_pie_chart: "Please draw a Mermaid pie chart according to the following requirements.",
+  convert_to_markdown: {
+    ...DEFAULT_PROMPT,
+    message: "Please convert the following to Markdown.",
+    translate: false,
+  },
+  convert_to_json: {
+    ...DEFAULT_PROMPT,
+    message: "Please convert the following to JSON.",
+    translate: false,
+  },
+  convert_to_yaml: {
+    ...DEFAULT_PROMPT,
+    message: "Please convert the following to YAML.",
+    translate: false,
+  },
   // Programming
-  // TODO: Rewrite programming prompts
-  programming_in_ruby:
-    "Write a program in Ruby that meets the following requirements.",
-  programming_in_python:
-    "Write a program in Python that meets the following requirements.",
-  programming_in_javascript:
-    "Write a program in JavaScript that meets the following requirements.",
-  programming_in_typescript:
-    "Write a program in TypeScript that meets the following requirements.",
-  programming_in_go:
-    "Write a program in Go that meets the following requirements.",
-  programming_in_rust:
-    "Write a program in Rust that meets the following requirements.",
+  programming_in_ruby: {
+    ...DEFAULT_PROMPT,
+    message:
+      "Please write a program in Ruby that meets the following requirements.",
+  },
+  programming_in_python: {
+    ...DEFAULT_PROMPT,
+    message:
+      "Please write a program in Python that meets the following requirements.",
+  },
+  programming_in_javascript: {
+    ...DEFAULT_PROMPT,
+    message:
+      "Please write a program in JavaScript that meets the following requirements.",
+  },
+  programming_in_typescript: {
+    ...DEFAULT_PROMPT,
+    message:
+      "Please write a program in TypeScript that meets the following requirements.",
+  },
+  programming_in_go: {
+    ...DEFAULT_PROMPT,
+    message:
+      "Please write a program in Go that meets the following requirements.",
+  },
+  programming_in_rust: {
+    ...DEFAULT_PROMPT,
+    message:
+      "Please write a program in Rust that meets the following requirements.",
+  },
+  // Draw
+  draw_mermaid_flowchart: {
+    ...DEFAULT_PROMPT,
+    message:
+      "Please write a Mermaid.js flowchart according to the following requirements.",
+  },
+  draw_mermaid_sequence_diagram: {
+    ...DEFAULT_PROMPT,
+    message:
+      "Please write a Mermaid.js sequence diagram according to the following requirements.",
+  },
+  draw_mermaid_gantt_diagram: {
+    ...DEFAULT_PROMPT,
+    message:
+      "Please write a Mermaid.js Gantt diagram according to the following requirements.",
+  },
+  draw_mermaid_class_diagram: {
+    ...DEFAULT_PROMPT,
+    message:
+      "Please write a Mermaid.js class diagram according to the following requirements.",
+  },
+  draw_mermaid_git_graph: {
+    ...DEFAULT_PROMPT,
+    message:
+      "Please write a Mermaid.js Git graph according to the following requirements.",
+  },
+  draw_mermaid_erd: {
+    ...DEFAULT_PROMPT,
+    message:
+      "Please write a Mermaid.js ERD according to the following requirements.",
+  },
+  draw_mermaid_user_journey_diagram: {
+    ...DEFAULT_PROMPT,
+    message:
+      "Please write a Mermaid.js user journey diagram according to the following requirements.",
+  },
+  draw_mermaid_pie_chart: {
+    ...DEFAULT_PROMPT,
+    message:
+      "Please write a Mermaid.js pie chart according to the following requirements.",
+  },
 };

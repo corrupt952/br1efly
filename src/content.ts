@@ -1,5 +1,5 @@
 import { DEFAULT_PROMPTS } from "./constants";
-import { Config, Message } from "./types";
+import { Config, Message, Prompt } from "./types";
 
 /**
  * Returns the current config
@@ -94,21 +94,23 @@ function popupOutput(output: string, x: number, y: number) {
 /**
  * Build messages for the completion
  */
-function buildMessages(language: string, prompt: string, selection: string) {
-  const messages: Message[] = [
+function buildMessages(language: string, prompt: Prompt, selection: string) {
+  let messages: Message[] = [
     {
       role: "system",
-      content: prompt,
+      content: prompt.message,
     },
     {
       role: "user",
-      content: selection
+      content: selection,
     },
-    {
-      role: "system",
-      content: `Answer in ${language}`
-    }
   ];
+  if (prompt.translate) {
+    messages.push({
+      role: "system",
+      content: `Answer in ${language}`,
+    });
+  }
   return messages;
 }
 
@@ -123,6 +125,7 @@ async function completionByOpenAI(
   apiKey: string,
   model: string,
   messages: Message[],
+  parameters: Prompt["parameters"] = {},
 ) {
   // https://platform.openai.com/docs/api-reference/chat
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -134,7 +137,7 @@ async function completionByOpenAI(
     body: JSON.stringify({
       model: model,
       messages: messages,
-      top_p: 0.8,
+      ...parameters,
     }),
   });
 
@@ -158,7 +161,8 @@ async function completionByAzure(
   endpoint: Config["endpoint"],
   apiKey: Config["apiKey"],
   model: Config["model"],
-  messages: Message[]
+  messages: Message[],
+  parameters: Prompt["parameters"] = {},
 ) {
   // https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference#chat-completions
   const apiVersion = "2023-03-15-preview";
@@ -172,7 +176,7 @@ async function completionByAzure(
       },
       body: JSON.stringify({
         messages: messages,
-        top_p: 0.8,
+        ...parameters,
       }),
     }
   );
@@ -193,16 +197,15 @@ async function completionByAzure(
  */
 async function completions(type: string, selection: string) {
   const config = (await fetchConfig()) as Config;
-
-  const prompt = DEFAULT_PROMPTS[type] || '';
-  if (prompt === "") {
-    alert(`Sorry, ${type} is not implemented yet.`);
-    return;
-  }
-
   const apiKey = config.apiKey;
   if (apiKey === "") {
     alert("Please set your OpenAI API key in the config page.");
+    return;
+  }
+
+  const prompt = DEFAULT_PROMPTS[type] || DEFAULT_PROMPTS;
+  if (prompt.message === "") {
+    alert(`Sorry, ${type} is not implemented yet.`);
     return;
   }
 
@@ -212,10 +215,11 @@ async function completions(type: string, selection: string) {
       config.endpoint,
       apiKey,
       config.model,
-      messages
+      messages,
+      prompt.parameters,
     );
   } else {
-    return await completionByOpenAI(apiKey, config.model, messages);
+    return await completionByOpenAI(apiKey, config.model, messages, prompt.parameters);
   }
 }
 

@@ -8,15 +8,17 @@ export type Config = {
   endpoint: string;
 };
 
-export type ModelMap = {
-  [key: string]: string[];
-
-  openai: string[];
-  azure: string[];
-};
-
-export type PromptMap = {
-  [key: string]: string;
+export type Prompt = {
+  message: string;
+  translate?: boolean;
+  parameters?: {
+    top_p?: number;
+    temperature?: number;
+    max_tokens?: number;
+    stop?: string[];
+    presence_penalty?: number;
+    frequency_penalty?: number;
+  };
 };
 
 export type ContextMenu = {
@@ -35,4 +37,4 @@ export type Message = {
 
   role: "system" | "user";
   content: string;
-}
+};
