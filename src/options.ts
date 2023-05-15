@@ -13,7 +13,7 @@ function validateConfig(config: Config) {
   const apiType = config.apiType;
   if (!apiType || apiType === "") return false;
   const models = MODELS[apiType];
-  const model = config.model || '';
+  const model = config.model || "";
   if (models.indexOf(model) === -1) {
     alert("Please set your model in the config page.");
     return false;
@@ -39,7 +39,7 @@ function buildLanguageOptions(selected?: string) {
   const languages = Object.keys(LANGUAGES);
   const language = selected || languages[0];
   elem.innerHTML = "";
-  languages.forEach(language => {
+  languages.forEach((language) => {
     const option = document.createElement("option");
     option.value = language;
     option.text = LANGUAGES[language];
@@ -51,14 +51,14 @@ function buildLanguageOptions(selected?: string) {
 /**
  * Set the model config based on the API type
  */
-function buildModelOptions(apiType: Config["apiType"], selected = null) {
+function buildModelOptions(apiType: Config["apiType"], selected?: string) {
   const elem = getInputElementById("model");
   if (!elem) return;
 
   const models: string[] = MODELS[apiType!];
 
   elem.innerHTML = "";
-  models.forEach(model => {
+  models.forEach((model) => {
     const option = document.createElement("option");
     option.value = model;
     option.text = model;
@@ -78,7 +78,9 @@ function buildModelOptions(apiType: Config["apiType"], selected = null) {
  * @param {*} apiType
  */
 function toggleAzureConfig(apiType: Config["apiType"]) {
-  const elements = document.getElementsByClassName("onlyAzure") as HTMLCollectionOf<HTMLElement>;
+  const elements = document.getElementsByClassName(
+    "onlyAzure"
+  ) as HTMLCollectionOf<HTMLElement>;
 
   for (let i = 0; i < elements.length; i++) {
     const element = elements[i];
@@ -90,38 +92,59 @@ function toggleAzureConfig(apiType: Config["apiType"]) {
   }
 }
 
+/**
+ * Returns the input element by the id
+ *
+ * @param id
+ * @returns
+ */
 function getInputElementById(id: string) {
   return document.getElementById(id) as HTMLInputElement;
 }
 
 /**
- * Load the current config and set the event listeners
+ * Initialize option page with the current config
  */
-document.addEventListener("DOMContentLoaded", () => {
-  // Load the current config
-  chrome.storage.sync.get(CONFIG_NAMES, config => {
-    buildLanguageOptions(config.language);
-    getInputElementById("apiKey").value = config.apiKey || "";
-    getInputElementById("endpoint").value = config.endpoint || "";
+function initialize(config: Config) {
+  buildLanguageOptions(config.language);
+  getInputElementById("apiKey").value = config.apiKey || "";
+  getInputElementById("endpoint").value = config.endpoint || "";
 
-    const apiType = config.apiType || "openai";
-    const elem = getInputElementById("apiType");
-    elem.value = apiType || '';
+  const apiType = config.apiType || "openai";
+  const elem = getInputElementById("apiType");
+  elem.value = apiType || "";
+  toggleAzureConfig(apiType);
+  buildModelOptions(apiType, config.model);
+
+  // On change of the API type, toggle the Azure config and update the model config
+  elem.addEventListener("change", () => {
+    const apiType = getInputElementById("apiType").value;
     toggleAzureConfig(apiType);
-    buildModelOptions(apiType, config.model);
+    buildModelOptions(apiType);
+  });
 
-    // On change of the API type, toggle the Azure config and update the model config
-    elem.addEventListener("change", () => {
-      const apiType = getInputElementById("apiType").value;
-      toggleAzureConfig(apiType);
-      buildModelOptions(apiType);
-    });
+  // Setup show and hide of the API key and endpoint
+  getInputElementById("showApiKey").addEventListener("change", () => {
+    const elem = getInputElementById("apiKey");
+    if (elem.type === "password") {
+      elem.type = "text";
+    } else {
+      elem.type = "password";
+    }
+  });
+  getInputElementById("showEndpoint").addEventListener("change", () => {
+    const elem = getInputElementById("endpoint");
+    if (elem.type === "password") {
+      elem.type = "text";
+    } else {
+      elem.type = "password";
+    }
   });
 
   // Save the config when the "Save" button is clicked
   getInputElementById("saveButton").addEventListener("click", () => {
     const config = CONFIG_NAMES.reduce((obj, key: string) => {
-      obj[key] = getInputElementById(key).value.toString() || '';
+      obj[key] = getInputElementById(key).value.toString() || "";
       return obj;
     }, {} as Config);
 
@@ -130,5 +153,15 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Config saved.");
       });
     }
+  });
+}
+
+/**
+ * Load the current config and set the event listeners
+ */
+document.addEventListener("DOMContentLoaded", () => {
+  // Load the current config
+  chrome.storage.sync.get(CONFIG_NAMES, (config) => {
+    initialize(config as Config);
   });
 });
