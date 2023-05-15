@@ -83,10 +83,10 @@ function popupOutput(output: string, x: number, y: number) {
   // Adjust the position of the popup
   // If the popup is out of the window, move it inside
   const rect = div.getBoundingClientRect();
-  if (x + rect.right > window.innerWidth) {
+  if (rect.right > window.innerWidth) {
     div.style.left = `${window.innerWidth - rect.width}px`;
   }
-  if (y + rect.bottom > window.innerHeight) {
+  if (rect.bottom > window.innerHeight) {
     div.style.top = `${window.innerHeight - rect.height}px`;
   }
 }
