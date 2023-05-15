@@ -170,7 +170,10 @@ async function completions(type: string, selection: string) {
   const config = (await fetchConfig()) as Config;
 
   const prompt = DEFAULT_PROMPTS[type] || '';
-  if (prompt === "") return;
+  if (prompt === "") {
+    alert(`Sorry, ${type} is not implemented yet.`);
+    return;
+  }
 
   const apiKey = config.apiKey;
   if (apiKey === "") {

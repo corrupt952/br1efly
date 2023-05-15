@@ -67,22 +67,65 @@ export const DEFAULT_CONTEXT_MENUS: ContextMenu[] = [
         type: "separator",
         contexts: ["selection"],
       },
-      // TODO: implements convert data format
       {
-        id: "convert_to_markdown",
-        title: "Convert to Markdown(Not implemented))",
+        id: "convert",
+        title: "Convert(Experimental)",
         contexts: ["selection"],
+        children: [
+          {
+            id: "convert_to_markdown",
+            title: "To Markdown",
+            contexts: ["selection"],
+          },
+          {
+            id: "convert_to_json",
+            title: "To JSON",
+            contexts: ["selection"],
+          },
+          {
+            id: "convert_to_yaml",
+            title: "To YAML",
+            contexts: ["selection"],
+          },
+        ],
       },
       {
-        id: "convert_to_json",
-        title: "Convert to JSON(Not implemented))",
+        id: "programming",
+        title: "Programming(Experimental)",
         contexts: ["selection"],
+        children: [
+          {
+            id: "programming_in_ruby",
+            title: "In Ruby",
+            contexts: ["selection"],
+          },
+          {
+            id: "programming_in_python",
+            title: "In Python",
+            contexts: ["selection"],
+          },
+          {
+            id: "programming_in_javascript",
+            title: "In JavaScript",
+            contexts: ["selection"],
+          },
+          {
+            id: "programming_in_typescript",
+            title: "In TypeScript",
+            contexts: ["selection"],
+          },
+          {
+            id: "programming_in_go",
+            title: "In Go",
+            contexts: ["selection"],
+          },
+          {
+            id: "programming_in_rust",
+            title: "In Rust",
+            contexts: ["selection"],
+          },
+        ],
       },
-      {
-        id: "convert_to_yaml",
-        title: "Convert to YAML(Not implemented)",
-        contexts: ["selection"],
-      }
     ],
   },
 ];
@@ -93,4 +136,21 @@ export const DEFAULT_PROMPTS: PromptMap = {
   detect_language: "Please detect the language of the following.",
   counterproposal: "Please suggest a counterproposal to the following.",
   proofreading: "Please proofread the following.",
-}
+  // Convert
+  convert_to_markdown: "Please convert the following to Markdown.",
+  convert_to_json: "Please convert the following to JSON.",
+  convert_to_yaml: "Please convert the following to YAML.",
+  // Programming
+  programming_in_ruby:
+    "Write a program in Ruby that meets the following requirements.",
+  programming_in_python:
+    "Write a program in Python that meets the following requirements.",
+  programming_in_javascript:
+    "Write a program in JavaScript that meets the following requirements.",
+  programming_in_typescript:
+    "Write a program in TypeScript that meets the following requirements.",
+  programming_in_go:
+    "Write a program in Go that meets the following requirements.",
+  programming_in_rust:
+    "Write a program in Rust that meets the following requirements.",
+};
