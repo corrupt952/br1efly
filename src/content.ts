@@ -79,6 +79,16 @@ function popupOutput(output: string, x: number, y: number) {
   });
   div.appendChild(copyButton);
   document.body.appendChild(div);
+
+  // Adjust the position of the popup
+  // If the popup is out of the window, move it inside
+  const rect = div.getBoundingClientRect();
+  if (x + rect.right > window.innerWidth) {
+    div.style.left = `${window.innerWidth - rect.width}px`;
+  }
+  if (y + rect.bottom > window.innerHeight) {
+    div.style.top = `${window.innerHeight - rect.height}px`;
+  }
 }
 
 /**
