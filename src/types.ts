@@ -9,6 +9,7 @@ export type Config = {
 };
 
 export type Prompt = {
+  title?: string;
   message: string;
   translate?: boolean;
   parameters?: {
@@ -19,6 +20,10 @@ export type Prompt = {
     presence_penalty?: number;
     frequency_penalty?: number;
   };
+};
+
+export type PromptMap = {
+  [key: string]: Prompt;
 };
 
 export type ContextMenu = {

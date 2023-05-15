@@ -1,15 +1,5 @@
-import { DEFAULT_CONTEXT_MENUS } from "./constants";
-import { ContextMenu } from "./types";
-
-/**
- * Load context menus from the storage
- * Context menu items are stored in the storage and default items
- */
-function loadContextMenus() {
-  let menus = DEFAULT_CONTEXT_MENUS;
-  // TODO: implements loading from the storage
-  return menus;
-}
+import { ContextMenu } from "@/types";
+import { buildContextMenus } from "./libs/prompt";
 
 /**
  * Register context menus recursively
@@ -41,8 +31,9 @@ function registerContextMenus(
 /**
  * Register context menus
  */
-chrome.runtime.onInstalled.addListener(() => {
-  registerContextMenus(loadContextMenus());
+chrome.runtime.onInstalled.addListener(async () => {
+  const contextMenus = await buildContextMenus();
+  registerContextMenus(contextMenus);
 });
 
 /**

@@ -1,11 +1,7 @@
-import {
-  CONFIG_NAMES,
-  DEFAULT_PROMPT_YAML,
-  LANGUAGES,
-  MODELS,
-} from "./constants";
-import { Config, Prompt } from "./types";
-import yaml from "js-yaml";
+import { CONFIG_NAMES, LANGUAGES, MODELS } from "@/constants";
+import { validatePromptYaml } from "@/libs/prompt";
+import { Config, Prompt } from "@/types";
+import { fetchConfig } from "./config";
 
 /**
  * Validate the config
@@ -32,22 +28,8 @@ function validateConfig(config: Config) {
     }
   }
 
-  // prompts allow empty
-  if (config.prompts === "") return true;
-  try {
-    const obj = yaml.load(config.prompts) as { prompts?: Prompt[] };
-    if (!obj.prompts) {
-      alert("Invalid YAML format.\nPlease set the top-level key as \"prompts\".");
-      return false;
-    }
-    obj.prompts.forEach((prompt) => {
-      if (!prompt.message) {
-        alert("Invalid YAML format.\nPlease set the \"message\" key in item.");
-        return false;
-      }
-    });
-  } catch (e) {
-    alert('Syntax error in YAML.\nPlease check the syntax of the YAML.')
+  if (config.prompts !== "" && !validatePromptYaml(config.prompts)) {
+    alert("Invalid YAML format.\nPlease check the syntax of the YAML.");
     return false;
   }
 
@@ -187,9 +169,7 @@ function initialize(config: Config) {
 /**
  * Load the current config and set the event listeners
  */
-document.addEventListener("DOMContentLoaded", () => {
-  // Load the current config
-  chrome.storage.sync.get(CONFIG_NAMES, (config) => {
-    initialize(config as Config);
-  });
+document.addEventListener("DOMContentLoaded", async () => {
+  const config = await fetchConfig();
+  initialize(config);
 });

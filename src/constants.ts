@@ -39,145 +39,138 @@ export const MODELS: {
 
 export const DEFAULT_CONTEXT_MENUS: ContextMenu[] = [
   {
-    id: "br1efly",
-    title: "br1efly",
+    id: "summarize",
+    title: "Summarize",
+    contexts: ["selection"],
+  },
+  {
+    id: "paraphrase",
+    title: "Paraphrase",
+    contexts: ["selection"],
+  },
+  {
+    id: "detect_language",
+    title: "Detect Language",
+    contexts: ["selection"],
+  },
+  {
+    id: "counterproposal",
+    title: "Counterproposal",
+    contexts: ["selection"],
+  },
+  {
+    id: "proofreading",
+    title: "Proofreading",
+    contexts: ["selection"],
+  },
+  {
+    id: "separator1",
+    type: "separator",
+    contexts: ["selection"],
+  },
+  {
+    id: "convert",
+    title: "Convert(Experimental)",
     contexts: ["selection"],
     children: [
       {
-        id: "summarize",
-        title: "Summarize",
+        id: "convert_to_markdown",
+        title: "To Markdown",
         contexts: ["selection"],
       },
       {
-        id: "paraphrase",
-        title: "Paraphrase",
+        id: "convert_to_json",
+        title: "To JSON",
         contexts: ["selection"],
       },
       {
-        id: "detect_language",
-        title: "Detect Language",
+        id: "convert_to_yaml",
+        title: "To YAML",
+        contexts: ["selection"],
+      },
+    ],
+  },
+  {
+    id: "programming",
+    title: "Programming(Experimental)",
+    contexts: ["selection"],
+    children: [
+      {
+        id: "programming_in_ruby",
+        title: "In Ruby",
         contexts: ["selection"],
       },
       {
-        id: "counterproposal",
-        title: "Counterproposal",
+        id: "programming_in_python",
+        title: "In Python",
         contexts: ["selection"],
       },
       {
-        id: "proofreading",
-        title: "Proofreading",
+        id: "programming_in_javascript",
+        title: "In JavaScript",
         contexts: ["selection"],
       },
       {
-        id: "separator1",
-        type: "separator",
+        id: "programming_in_typescript",
+        title: "In TypeScript",
         contexts: ["selection"],
       },
       {
-        id: "convert",
-        title: "Convert(Experimental)",
+        id: "programming_in_go",
+        title: "In Go",
         contexts: ["selection"],
-        children: [
-          {
-            id: "convert_to_markdown",
-            title: "To Markdown",
-            contexts: ["selection"],
-          },
-          {
-            id: "convert_to_json",
-            title: "To JSON",
-            contexts: ["selection"],
-          },
-          {
-            id: "convert_to_yaml",
-            title: "To YAML",
-            contexts: ["selection"],
-          },
-        ],
       },
       {
-        id: "programming",
-        title: "Programming(Experimental)",
+        id: "programming_in_rust",
+        title: "In Rust",
         contexts: ["selection"],
-        children: [
-          {
-            id: "programming_in_ruby",
-            title: "In Ruby",
-            contexts: ["selection"],
-          },
-          {
-            id: "programming_in_python",
-            title: "In Python",
-            contexts: ["selection"],
-          },
-          {
-            id: "programming_in_javascript",
-            title: "In JavaScript",
-            contexts: ["selection"],
-          },
-          {
-            id: "programming_in_typescript",
-            title: "In TypeScript",
-            contexts: ["selection"],
-          },
-          {
-            id: "programming_in_go",
-            title: "In Go",
-            contexts: ["selection"],
-          },
-          {
-            id: "programming_in_rust",
-            title: "In Rust",
-            contexts: ["selection"],
-          },
-        ],
+      },
+    ],
+  },
+  {
+    id: "draw",
+    title: "Draw(Experimental)",
+    contexts: ["selection"],
+    children: [
+      {
+        id: "draw_mermaid_flowchart",
+        title: "Mermaid.js Flowchart",
+        contexts: ["selection"],
       },
       {
-        id: "draw",
-        title: "Draw(Experimental)",
+        id: "draw_mermaid_sequence_diagram",
+        title: "Mermaid.js Sequence Diagram",
         contexts: ["selection"],
-        children: [
-          {
-            id: "draw_mermaid_flowchart",
-            title: "Mermaid.js Flowchart",
-            contexts: ["selection"],
-          },
-          {
-            id: "draw_mermaid_sequence_diagram",
-            title: "Mermaid.js Sequence Diagram",
-            contexts: ["selection"],
-          },
-          {
-            id: "draw_mermaid_gantt_diagram",
-            title: "Mermaid.js Gantt Diagram",
-            contexts: ["selection"],
-          },
-          {
-            id: "draw_mermaid_class_diagram",
-            title: "Mermaid.js Class Diagram",
-            contexts: ["selection"],
-          },
-          {
-            id: "draw_mermaid_git_graph",
-            title: "Mermaid.js Git Graph",
-            contexts: ["selection"],
-          },
-          {
-            id: "draw_mermaid_erd",
-            title: "Mermaid.js ERD",
-            contexts: ["selection"],
-          },
-          {
-            id: "draw_mermaid_user_journey_diagram",
-            title: "Mermaid.js User Journey Diagram",
-            contexts: ["selection"],
-          },
-          {
-            id: "draw_mermaid_pie_chart",
-            title: "Mermaid.js Pie Chart",
-            contexts: ["selection"],
-          },
-        ],
+      },
+      {
+        id: "draw_mermaid_gantt_diagram",
+        title: "Mermaid.js Gantt Diagram",
+        contexts: ["selection"],
+      },
+      {
+        id: "draw_mermaid_class_diagram",
+        title: "Mermaid.js Class Diagram",
+        contexts: ["selection"],
+      },
+      {
+        id: "draw_mermaid_git_graph",
+        title: "Mermaid.js Git Graph",
+        contexts: ["selection"],
+      },
+      {
+        id: "draw_mermaid_erd",
+        title: "Mermaid.js ERD",
+        contexts: ["selection"],
+      },
+      {
+        id: "draw_mermaid_user_journey_diagram",
+        title: "Mermaid.js User Journey Diagram",
+        contexts: ["selection"],
+      },
+      {
+        id: "draw_mermaid_pie_chart",
+        title: "Mermaid.js Pie Chart",
+        contexts: ["selection"],
       },
     ],
   },
@@ -305,13 +298,3 @@ export const DEFAULT_PROMPTS: { [key: string]: Prompt } = {
       "Please write a Mermaid.js pie chart according to the following requirements.",
   },
 };
-
-export const DEFAULT_PROMPT_YAML = yaml.dump({
-  prompts: [
-    {
-      ...DEFAULT_PROMPT,
-      message: "Say cheese, please?",
-      translate: true,
-    },
-  ],
-});

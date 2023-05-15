@@ -12,6 +12,11 @@ export default defineConfig(({mode}) => {
   }
 
   return {
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, 'src'),
+      },
+    },
     build: {
       sourceMap: true,
       emptyOutDir: false,

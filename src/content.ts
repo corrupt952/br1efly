@@ -1,19 +1,7 @@
+import { fetchConfig } from "@/config";
+import { prompts } from "@/libs/prompt";
+import { Config, Message, Prompt } from "@/types";
 import { DEFAULT_PROMPTS } from "./constants";
-import { Config, Message, Prompt } from "./types";
-
-/**
- * Returns the current config
- *
- * @returns
- */
-async function fetchConfig() {
-  return new Promise((resolve, reject) => {
-    return chrome.storage.sync.get(
-      ["language", "apiKey", "model", "apiType", "endpoint"],
-      resolve
-    );
-  });
-}
 
 /**
  * Show dialog to indicate processing
@@ -203,7 +191,7 @@ async function completions(type: string, selection: string) {
     return;
   }
 
-  const prompt = DEFAULT_PROMPTS[type] || DEFAULT_PROMPTS;
+  const prompt = (await prompts())[type];
   if (prompt.message === "") {
     alert(`Sorry, ${type} is not implemented yet.`);
     return;

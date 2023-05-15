@@ -99,27 +99,32 @@
           <div class="input-group">
             <label for="yaml">Example:</label>
             <textarea id="yaml" readonly>
-prompts:
-  - message: "Hello, world!" # required
-    translate: true # optional(default: true)
-    parameters:
-      top_p: 1, # optional(default: 0.8)
-      temperature: 1, # optional(default: API default)
-      max_tokens: 1000, # optional(default: API default)
-      stop: [], # optional(default: API default)
-      presence_penalty: 0, # optional(default: API default)
-      frequency_penalty: 0, # optional(default: API default)
+say_hello:
+  title: "Say Hello"
+  message: "Hello, world!" # required
+  translate: true # optional(default: true)
+  parameters:
+    top_p: 1 # optional(default: 0.8)
+    temperature: 1 # optional(default: API default)
+    max_tokens: 1000 # optional(default: API default)
+    stop: [] # optional(default: API default)
+    presence_penalty: 0 # optional(default: API default)
+    frequency_penalty: 0 # optional(default: API default)
 
-  # If you do not want to translate to "Output Language", disable "translate"
-  - message: "Please convert the following to JSON."
-    translate: false
+# If you do not want to translate to "Output Language", disable "translate"
+convert_to_tsv:
+  title: "Convert to TSV"
+  message: "Please convert the following to TSV."
+  translate: false
 
-  # Multiple string prompt is also available
-  - message: |
-      Please convert the following to JSON.
-      1. Hello, world!
-      2. Goodbye, world!
-    translate: true
+# Multiple string prompt is also available
+say_hello_and_goodbye:
+  title: "Say Hello and Goodbye"
+  message: |
+    Please convert the following to JSON.
+    1. Hello, world!
+    2. Goodbye, world!
+  translate: true
             </textarea>
           </div>
         </div>
