@@ -141,6 +141,7 @@ export const DEFAULT_PROMPTS: PromptMap = {
   convert_to_json: "Please convert the following to JSON.",
   convert_to_yaml: "Please convert the following to YAML.",
   // Programming
+  // TODO: Rewrite programming prompts
   programming_in_ruby:
     "Write a program in Ruby that meets the following requirements.",
   programming_in_python:
