@@ -43,3 +43,12 @@ export type Message = {
   role: "system" | "user";
   content: string;
 };
+
+export type History = {
+  [key: string]: string;
+
+  url: string;
+  type: string;
+  selection: string;
+  result: string;
+}

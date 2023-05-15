@@ -1,7 +1,7 @@
 import { fetchConfig } from "@/config";
 import { prompts } from "@/libs/prompt";
 import { Config, Message, Prompt } from "@/types";
-import { DEFAULT_PROMPTS } from "./constants";
+import { recordHistory } from "@/libs/history";
 
 /**
  * Show dialog to indicate processing
@@ -113,7 +113,7 @@ async function completionByOpenAI(
   apiKey: string,
   model: string,
   messages: Message[],
-  parameters: Prompt["parameters"] = {},
+  parameters: Prompt["parameters"] = {}
 ) {
   // https://platform.openai.com/docs/api-reference/chat
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -150,7 +150,7 @@ async function completionByAzure(
   apiKey: Config["apiKey"],
   model: Config["model"],
   messages: Message[],
-  parameters: Prompt["parameters"] = {},
+  parameters: Prompt["parameters"] = {}
 ) {
   // https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference#chat-completions
   const apiVersion = "2023-03-15-preview";
@@ -204,10 +204,15 @@ async function completions(type: string, selection: string) {
       apiKey,
       config.model,
       messages,
-      prompt.parameters,
+      prompt.parameters
     );
   } else {
-    return await completionByOpenAI(apiKey, config.model, messages, prompt.parameters);
+    return await completionByOpenAI(
+      apiKey,
+      config.model,
+      messages,
+      prompt.parameters
+    );
   }
 }
 
@@ -225,6 +230,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   completions(request.type, request.text)
     .then((result) => {
       popupOutput(result, x, y);
+      recordHistory({
+        url: window.location.href,
+        type: request.type,
+        selection: request.text,
+        result: result,
+      });
     })
     .catch((error) => {
       console.error(`error: ${JSON.stringify(error)}`);
