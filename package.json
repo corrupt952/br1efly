@@ -1,8 +1,8 @@
 {
   "name": "br1efly",
   "private": true,
-  "version": "0.0.1",
-  "description": "The respository for chrome extension to perform various operations using OpenAI or Azure OpenAI Service",
+  "version": "0.0.2",
+  "description": "The repository for chrome extension to perform various operations using OpenAI or Azure OpenAI Service",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc && npm run build-background && npm run build-popup && npm run build-options && npm run build-content",
