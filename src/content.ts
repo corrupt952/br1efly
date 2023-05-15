@@ -58,6 +58,10 @@ function popupOutput(output: string, x: number, y: number) {
   div.appendChild(document.createElement("br"));
   // Close button
   const closeButton = document.createElement("button");
+  closeButton.style.backgroundColor = "grey";
+  closeButton.style.borderRadius = "5px";
+  closeButton.style.color = "black";
+  closeButton.style.padding = "5px";
   closeButton.innerText = "Close";
   closeButton.addEventListener("click", () => {
     document.body.removeChild(div);
