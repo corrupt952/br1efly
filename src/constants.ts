@@ -126,6 +126,53 @@ export const DEFAULT_CONTEXT_MENUS: ContextMenu[] = [
           },
         ],
       },
+      {
+        id: "draw",
+        title: "Draw(Experimental)",
+        contexts: ["selection"],
+        children: [
+          {
+            id: "draw_mermaid_flowchart",
+            title: "Mermaid Flowchart",
+            contexts: ["selection"],
+          },
+          {
+            id: "draw_mermaid_sequence_diagram",
+            title: "Mermaid Sequence Diagram",
+            contexts: ["selection"],
+          },
+          {
+            id: "draw_mermaid_gantt_diagram",
+            title: "Mermaid Gantt Diagram",
+            contexts: ["selection"],
+          },
+          {
+            id: "draw_mermaid_class_diagram",
+            title: "Mermaid Class Diagram",
+            contexts: ["selection"],
+          },
+          {
+            id: "draw_mermaid_git_graph",
+            title: "Mermaid Git Graph",
+            contexts: ["selection"],
+          },
+          {
+            id: "draw_mermaid_erd",
+            title: "Mermaid ERD",
+            contexts: ["selection"],
+          },
+          {
+            id: "draw_mermaid_user_journey_diagram",
+            title: "Mermaid User Journey Diagram",
+            contexts: ["selection"],
+          },
+          {
+            id: "draw_mermaid_pie_chart",
+            title: "Mermaid Pie Chart",
+            contexts: ["selection"],
+          },
+        ],
+      },
     ],
   },
 ];
@@ -140,6 +187,15 @@ export const DEFAULT_PROMPTS: PromptMap = {
   convert_to_markdown: "Please convert the following to Markdown.",
   convert_to_json: "Please convert the following to JSON.",
   convert_to_yaml: "Please convert the following to YAML.",
+  // Draw
+  draw_mermaid_flowchart: "Please draw a Mermaid flowchart according to the following requirements.",
+  draw_mermaid_sequence_diagram: "Please draw a Mermaid sequence diagram according to the following requirements.",
+  draw_mermaid_gantt_diagram: "Please draw a Mermaid Gantt diagram according to the following requirements.",
+  draw_mermaid_class_diagram: "Please draw a Mermaid class diagram according to the following requirements.",
+  draw_mermaid_git_graph: "Please draw a Mermaid Git graph according to the following requirements.",
+  draw_mermaid_erd: "Please draw a Mermaid ERD according to the following requirements.",
+  draw_mermaid_user_journey_diagram: "Please draw a Mermaid user journey diagram according to the following requirements.",
+  draw_mermaid_pie_chart: "Please draw a Mermaid pie chart according to the following requirements.",
   // Programming
   // TODO: Rewrite programming prompts
   programming_in_ruby:
