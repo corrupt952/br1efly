@@ -1,66 +1,134 @@
 <!DOCTYPE html>
 <head>
-<meta charset="utf-8">
-<style>
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-body {
-  text-align: center;
-}
-h1 {
-  margin: 20px 0;
-  padding: 12px;
-}
-.form {
-  width: 100%;
-  margin: 0 auto;
-}
-.input {
-  width: 100%;
-  padding: 12px;
-  resize: vertical;
-  clear: both;
-}
-</style>
+  <meta charset="utf-8" />
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+    body {
+      max-width: 100svw;
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
+    h1 {
+      padding: 12px;
+      text-align: center;
+    }
+    .flex-group {
+      width: 100%;
+      display: flex;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .flex-group .flex {
+      flex: 1;
+      display: flex;
+      max-width: 80%;
+      flex-wrap: wrap;
+    }
+    .flex-group .flex .flex-item {
+      width: 100%;
+      padding: 12px;
+      text-align: center;
+    }
+    .flex-group .flex .flex-item.max-half-width {
+      width: 50%;
+      text-align: left;
+    }
+    .input-group {
+      width: 100%;
+      padding: 12px;
+      clear: both;
+    }
+    .input-group textarea {
+      width: 100%;
+      height: 300px;
+      padding: 8px;
+    }
+    .input-group textarea[readonly] {
+      background-color: #eee;
+    }
+    .input-group input[type="button"] {
+      padding: 8px;
+    }
+  </style>
 </head>
 <html lang="ja">
   <body>
     <h1>Options</h1>
-    <form id="optionsForm" class="form">
-      <div class="input">
-        <label for="language">Output Language:</label>
-        <select id="language"></select>
-      </div>
-      <div class="input">
-        <label for="apiType">API Type:</label>
-        <select id="apiType">
-          <option value="openai">OpenAI</option>
-          <option value="azure">Azure</option>
-        </select>
-      </div>
-      <div class="input">
-        <label for="apiKey">API Key:</label>
-        <input type="password" id="apiKey">
-        <label for="showApiKey">Show</label>
-        <input type="checkbox" id="showApiKey">
-      </div>
-      <div class="input">
-        <label for="model">Model:</label>
-        <select id="model"></select>
-      </div>
-      <div class="input onlyAzure">
-        <label for="endpoint">Endpoint:</label>
-        <input type="password" id="endpoint">
-        <label for="showEndpoint">Show</label>
-        <input type="checkbox" id="showEndpoint">
-      </div>
-      <div class="input">
-        <input type="button" id="saveButton" value="Save">
-      </div>
-    </form>
+    <div class="flex-group">
+      <form id="optionsForm" class="flex">
+        <div class="flex-item max-half-width">
+          <div class="input-group">
+            <label for="language">Output Language:</label>
+            <select id="language"></select>
+          </div>
+          <div class="input-group">
+            <label for="apiType">API Type:</label>
+            <select id="apiType">
+              <option value="openai">OpenAI</option>
+              <option value="azure">Azure</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="apiKey">API Key:</label>
+            <input type="password" id="apiKey" />
+            <input type="checkbox" id="showApiKey" />
+            <label for="showApiKey">Show</label>
+          </div>
+          <div class="input-group">
+            <label for="model">Model:</label>
+            <select id="model"></select>
+          </div>
+          <div class="input-group onlyAzure">
+            <label for="endpoint">Endpoint:</label>
+            <input type="password" id="endpoint" />
+            <input type="checkbox" id="showEndpoint" />
+            <label for="showEndpoint">Show</label>
+          </div>
+        </div>
+        <div class="flex-item max-half-width">
+          <div class="input-group">
+            <label for="prompts">Prompts:</label>
+            <textarea id="prompts"></textarea>
+          </div>
+          <!-- example yaml-->
+          <div class="input-group">
+            <label for="yaml">Example:</label>
+            <textarea id="yaml" readonly>
+prompts:
+  - message: "Hello, world!" # required
+    translate: true # optional(default: true)
+    parameters:
+      top_p: 1, # optional(default: 0.8)
+      temperature: 1, # optional(default: API default)
+      max_tokens: 1000, # optional(default: API default)
+      stop: [], # optional(default: API default)
+      presence_penalty: 0, # optional(default: API default)
+      frequency_penalty: 0, # optional(default: API default)
+
+  # If you do not want to translate to "Output Language", disable "translate"
+  - message: "Please convert the following to JSON."
+    translate: false
+
+  # Multiple string prompt is also available
+  - message: |
+      Please convert the following to JSON.
+      1. Hello, world!
+      2. Goodbye, world!
+    translate: true
+            </textarea>
+          </div>
+        </div>
+        <div class="flex-item">
+          <div class="input-group">
+            <input type="button" id="saveButton" value="Save" />
+          </div>
+      </form>
+    </div>
     <script src="options.js"></script>
   </body>
 </html>

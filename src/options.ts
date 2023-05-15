@@ -1,5 +1,11 @@
-import { CONFIG_NAMES, LANGUAGES, MODELS } from "./constants";
-import { Config } from "./types";
+import {
+  CONFIG_NAMES,
+  DEFAULT_PROMPT_YAML,
+  LANGUAGES,
+  MODELS,
+} from "./constants";
+import { Config, Prompt } from "./types";
+import yaml from "js-yaml";
 
 /**
  * Validate the config
@@ -24,6 +30,25 @@ function validateConfig(config: Config) {
       alert("Please set your Azure endpoint in the config page.");
       return false;
     }
+  }
+
+  // prompts allow empty
+  if (config.prompts === "") return true;
+  try {
+    const obj = yaml.load(config.prompts) as { prompts?: Prompt[] };
+    if (!obj.prompts) {
+      alert("Invalid YAML format.\nPlease set the top-level key as \"prompts\".");
+      return false;
+    }
+    obj.prompts.forEach((prompt) => {
+      if (!prompt.message) {
+        alert("Invalid YAML format.\nPlease set the \"message\" key in item.");
+        return false;
+      }
+    });
+  } catch (e) {
+    alert('Syntax error in YAML.\nPlease check the syntax of the YAML.')
+    return false;
   }
 
   return true;
@@ -109,6 +134,9 @@ function initialize(config: Config) {
   buildLanguageOptions(config.language);
   getInputElementById("apiKey").value = config.apiKey || "";
   getInputElementById("endpoint").value = config.endpoint || "";
+  if (config.prompts && config.prompts !== "") {
+    getInputElementById("prompts").value = config.prompts;
+  }
 
   const apiType = config.apiType || "openai";
   const elem = getInputElementById("apiType");

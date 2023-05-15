@@ -15,8 +15,12 @@
   "license": "MIT",
   "devDependencies": {
     "@types/chrome": "^0.0.235",
+    "@types/js-yaml": "^4.0.5",
     "glob": "^10.2.3",
     "typescript": "^5.0.4",
     "vite": "^4.3.5"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
   }
 }

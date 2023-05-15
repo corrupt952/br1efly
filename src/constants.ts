@@ -1,12 +1,13 @@
 import { ContextMenu, Prompt } from "./types";
+import yaml from "js-yaml";
 
-export const LANGUAGES: {[key: string]: string} = {
-  "english": "English",
-  "japanese": "日本語",
-  "chinese": "中文",
-  "korean": "한국어",
-  "thai": "ไทย",
-  "vietnamese" : "Tiếng Việt",
+export const LANGUAGES: { [key: string]: string } = {
+  english: "English",
+  japanese: "日本語",
+  chinese: "中文",
+  korean: "한국어",
+  thai: "ไทย",
+  vietnamese: "Tiếng Việt",
 };
 
 export const CONFIG_NAMES: string[] = [
@@ -15,6 +16,7 @@ export const CONFIG_NAMES: string[] = [
   "apiKey",
   "model",
   "endpoint",
+  "prompts",
 ];
 
 export const MODELS: {
@@ -303,3 +305,13 @@ export const DEFAULT_PROMPTS: { [key: string]: Prompt } = {
       "Please write a Mermaid.js pie chart according to the following requirements.",
   },
 };
+
+export const DEFAULT_PROMPT_YAML = yaml.dump({
+  prompts: [
+    {
+      ...DEFAULT_PROMPT,
+      message: "Say cheese, please?",
+      translate: true,
+    },
+  ],
+});
