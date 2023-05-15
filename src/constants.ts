@@ -1,13 +1,13 @@
 import { ContextMenu, Prompt } from "./types";
 
-export const LANGUAGES = [
-  "english",
-  "japanese",
-  "chinese",
-  "korean",
-  "thai",
-  "vietnamese",
-];
+export const LANGUAGES: {[key: string]: string} = {
+  "english": "English",
+  "japanese": "日本語",
+  "chinese": "中文",
+  "korean": "한국어",
+  "thai": "ไทย",
+  "vietnamese" : "Tiếng Việt",
+};
 
 export const CONFIG_NAMES: string[] = [
   "language",

@@ -1,4 +1,4 @@
-import { CONFIG_NAMES, MODELS } from "./constants";
+import { CONFIG_NAMES, LANGUAGES, MODELS } from "./constants";
 import { Config } from "./types";
 
 /**
@@ -30,14 +30,32 @@ function validateConfig(config: Config) {
 }
 
 /**
+ * Set the language from LANGUAGES
+ */
+function buildLanguageOptions(selected?: string) {
+  const elem = getInputElementById("language");
+  if (!elem) return;
+
+  const languages = Object.keys(LANGUAGES);
+  const language = selected || languages[0];
+  elem.innerHTML = "";
+  languages.forEach(language => {
+    const option = document.createElement("option");
+    option.value = language;
+    option.text = LANGUAGES[language];
+    elem.appendChild(option);
+  });
+  elem.value = language;
+}
+
+/**
  * Set the model config based on the API type
  */
-function updateModelConfig(apiType: Config["apiType"], selected = null) {
+function buildModelOptions(apiType: Config["apiType"], selected = null) {
   const elem = getInputElementById("model");
   if (!elem) return;
 
   const models: string[] = MODELS[apiType!];
-  console.log(`models: ${JSON.stringify(models)}`)
 
   elem.innerHTML = "";
   models.forEach(model => {
@@ -82,7 +100,7 @@ function getInputElementById(id: string) {
 document.addEventListener("DOMContentLoaded", () => {
   // Load the current config
   chrome.storage.sync.get(CONFIG_NAMES, config => {
-    getInputElementById("language").value = config.language || "english";
+    buildLanguageOptions(config.language);
     getInputElementById("apiKey").value = config.apiKey || "";
     getInputElementById("endpoint").value = config.endpoint || "";
 
@@ -90,14 +108,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const elem = getInputElementById("apiType");
     elem.value = apiType || '';
     toggleAzureConfig(apiType);
-    updateModelConfig(apiType, config.model);
+    buildModelOptions(apiType, config.model);
 
     // On change of the API type, toggle the Azure config and update the model config
-    elem?.addEventListener("change", () => {
+    elem.addEventListener("change", () => {
       const apiType = getInputElementById("apiType").value;
-      console.log(`apiType: ${apiType}`)
       toggleAzureConfig(apiType);
-      updateModelConfig(apiType);
+      buildModelOptions(apiType);
     });
   });
 
