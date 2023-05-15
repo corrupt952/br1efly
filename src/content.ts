@@ -67,6 +67,17 @@ function popupOutput(output: string, x: number, y: number) {
     document.body.removeChild(div);
   });
   div.appendChild(closeButton);
+  // Copy to clipboard button
+  const copyButton = document.createElement("button");
+  copyButton.style.backgroundColor = "grey";
+  copyButton.style.borderRadius = "5px";
+  copyButton.style.color = "black";
+  copyButton.style.padding = "5px";
+  copyButton.innerText = "Copy to clipboard";
+  copyButton.addEventListener("click", () => {
+    navigator.clipboard.writeText(output);
+  });
+  div.appendChild(copyButton);
   document.body.appendChild(div);
 }
 
