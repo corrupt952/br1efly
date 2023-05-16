@@ -199,27 +199,24 @@ export const DEFAULT_PROMPTS: { [key: string]: Prompt } = {
   summarize: {
     ...DEFAULT_PROMPT,
     message: "Please summarize the following in one line.",
-    translate: true,
-  },
-  paraphrase: {
-    ...DEFAULT_PROMPT,
-    message: "Please suggest three bulleted paraphrases of the following.",
-    translate: true,
   },
   detect_language: {
     ...DEFAULT_PROMPT,
     message: "Please detect the language of the following.",
-    translate: true,
   },
   counterproposal: {
     ...DEFAULT_PROMPT,
     message: "Please suggest a counterproposal to the following.",
-    translate: true,
+  },
+  paraphrase: {
+    ...DEFAULT_PROMPT,
+    message: "Please suggest three bulleted paraphrases of the following.",
+    translate: false,
   },
   proofreading: {
     ...DEFAULT_PROMPT,
     message: "Please proofread the following.",
-    translate: true,
+    translate: false,
   },
   // Translate
   ...(
