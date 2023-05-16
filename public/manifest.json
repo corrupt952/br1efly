@@ -9,8 +9,8 @@
     "storage"
   ],
   "host_permissions": [
-    "https://*/*",
-    "http://*/*"
+    "https://api.openai.com/*",
+    "https://*.openai.azure.com/*"
   ],
   "icons": {
     "16": "images/icon16.png",
