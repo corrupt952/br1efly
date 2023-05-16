@@ -1,16 +1,17 @@
 {
   "name": "br1efly",
   "private": true,
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "The repository for chrome extension to perform various operations using OpenAI or Azure OpenAI Service",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf dist",
-    "build": "tsc && npm run clean && npm run build-background && npm run build-popup && npm run build-options && npm run build-content && npm run replace-version",
+    "build": "tsc && npm run clean && npm run build-background && npm run build-popup && npm run build-options && npm run build-content && npm run build-history && npm run replace-version",
     "build-background": "tsc && BUILD_TARGET=src/background.ts vite build",
     "build-popup": "tsc && BUILD_TARGET=src/popup.ts vite build",
     "build-options": "tsc && BUILD_TARGET=src/options.ts vite build",
     "build-content": "tsc && BUILD_TARGET=src/content.ts vite build",
+    "build-history": "tsc && BUILD_TARGET=src/history.ts vite build",
     "replace-version": "cat public/manifest.json| jq \".version|=\\\"$(jq -r .version package.json)\\\"\" > dist/manifest.json"
   },
   "author": "K@zuki.",

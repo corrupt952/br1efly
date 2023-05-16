@@ -320,3 +320,5 @@ export const DEFAULT_PROMPTS: { [key: string]: Prompt } = {
       "Please write a Mermaid.js pie chart according to the following requirements.",
   },
 };
+
+export const HISTORY_LIMIT = 500;

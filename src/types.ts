@@ -45,10 +45,11 @@ export type Message = {
 };
 
 export type History = {
-  [key: string]: string;
+  [key: string]: string | Message[];
 
   url: string;
   type: string;
   selection: string;
+  messages: Message[];
   result: string;
 }

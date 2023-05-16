@@ -1,3 +1,4 @@
+import { HISTORY_LIMIT } from "@/constants";
 import { History } from "@/types";
 
 /**
@@ -10,8 +11,7 @@ export function recordHistory(history: History) {
     console.log(`items: ${JSON.stringify(items)}`);
     const histories = items.histories || [];
     histories.push(history);
-    // TODO: limit the number of histories
-    chrome.storage.local.set({ histories: histories });
+    chrome.storage.local.set({ histories: histories.slice(-HISTORY_LIMIT) });
   });
 }
 
@@ -26,4 +26,3 @@ export function fetchHistories(): Promise<History[]> {
     });
   });
 }
-

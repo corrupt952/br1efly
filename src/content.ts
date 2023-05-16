@@ -198,8 +198,9 @@ async function completions(type: string, selection: string) {
   }
 
   const messages = buildMessages(config.language, prompt, selection);
+  let result = null;
   if (config.apiType === "azure") {
-    return await completionByAzure(
+    result = await completionByAzure(
       config.endpoint,
       apiKey,
       config.model,
@@ -207,13 +208,21 @@ async function completions(type: string, selection: string) {
       prompt.parameters
     );
   } else {
-    return await completionByOpenAI(
+    result = await completionByOpenAI(
       apiKey,
       config.model,
       messages,
       prompt.parameters
     );
   }
+  recordHistory({
+    url: window.location.href,
+    type: type,
+    messages: messages,
+    selection: selection,
+    result: result,
+  });
+  return result;
 }
 
 /**
@@ -230,12 +239,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   completions(request.type, request.text)
     .then((result) => {
       popupOutput(result, x, y);
-      recordHistory({
-        url: window.location.href,
-        type: request.type,
-        selection: request.text,
-        result: result,
-      });
     })
     .catch((error) => {
       console.error(`error: ${JSON.stringify(error)}`);
