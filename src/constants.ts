@@ -69,6 +69,18 @@ export const DEFAULT_CONTEXT_MENUS: ContextMenu[] = [
     contexts: ["selection"],
   },
   {
+    id: "translate",
+    title: "Translate",
+    contexts: ["selection"],
+    children: Object.keys(LANGUAGES).map((language) => {
+      return {
+        id: `translate_to_${language}`,
+        title: `To ${LANGUAGES[language]}`,
+        contexts: ["selection"],
+      };
+    })
+  },
+  {
     id: "convert",
     title: "Convert(Experimental)",
     contexts: ["selection"],
@@ -209,6 +221,19 @@ export const DEFAULT_PROMPTS: { [key: string]: Prompt } = {
     message: "Please proofread the following.",
     translate: true,
   },
+  // Translate
+  ...(
+    Object.keys(LANGUAGES).reduce((acc, language) => {
+      return {
+        ...acc,
+        [`translate_to_${language}`]: {
+          ...DEFAULT_PROMPT,
+          message: `Please translate the following to ${LANGUAGES[language]}.`,
+          translate: false,
+        },
+      };
+    }, {})
+  ),
   // Convert
   convert_to_markdown: {
     ...DEFAULT_PROMPT,
