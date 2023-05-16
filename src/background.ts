@@ -38,7 +38,6 @@ chrome.runtime.onInstalled.addListener(async () => {
 
 /**
  * Send a message to content.js when a context menu is clicked
- *
  */
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (!tab) return;
@@ -50,5 +49,17 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
   } catch (error) {
     console.error(`error: ${JSON.stringify(error)}`);
     alert("Please reload the page.");
+  }
+});
+
+/**
+ * Rebuild context menus when the config is updated
+ */
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.type === "reload_context_menu") {
+    chrome.contextMenus.removeAll();
+    buildContextMenus().then((menus) => {
+      registerContextMenus(menus);
+    });
   }
 });

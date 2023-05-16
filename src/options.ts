@@ -162,6 +162,7 @@ function initialize(config: Config) {
       chrome.storage.sync.set(config, () => {
         alert("Config saved.");
       });
+      chrome.runtime.sendMessage({ type: "reload_context_menu" });
     }
   });
 }
