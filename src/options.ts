@@ -1,6 +1,6 @@
 import { CONFIG_NAMES, LANGUAGES, MODELS } from "@/constants";
 import { validatePromptYaml } from "@/libs/prompt";
-import { Config, Prompt } from "@/types";
+import { Config } from "@/types";
 import { fetchConfig } from "./config";
 
 /**

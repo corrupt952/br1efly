@@ -1,5 +1,4 @@
 import { ContextMenu, Prompt } from "./types";
-import yaml from "js-yaml";
 
 export const LANGUAGES: { [key: string]: string } = {
   english: "English",
