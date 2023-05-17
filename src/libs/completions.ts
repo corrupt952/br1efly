@@ -77,7 +77,7 @@ async function completionByAzure(
   parameters: Prompt["parameters"] = {}
 ) {
   // https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference#chat-completions
-  const apiVersion = "2023-03-15-preview";
+  const apiVersion = "2023-05-15";
   const response = await fetch(
     `${endpoint}/openai/deployments/${model}/chat/completions?api-version=${apiVersion}`,
     {
