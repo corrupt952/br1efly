@@ -14,7 +14,7 @@ importers:
     devDependencies:
       '@types/chrome':
         specifier: ^0.1.32
-        version: 0.1.37
+        version: 0.1.38
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
@@ -332,8 +332,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@types/chrome@0.1.37':
-    resolution: {integrity: sha512-IJE4ceuDO7lrEuua7Pow47zwNcI8E6qqkowRP7aFPaZ0lrjxh6y836OPqqkIZeTX64FTogbw+4RNH0+QrweCTQ==}
+  '@types/chrome@0.1.38':
+    resolution: {integrity: sha512-5aK4m9wZqoWAoB98aElESLm/5pXpqJnFWMNoiCs/XdPsXR6wNdVkJFSdQ9Wr4PnTuUrxD0SuNuDHh3EG5QeBzA==}
 
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
@@ -741,7 +741,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.55.1':
     optional: true
 
-  '@types/chrome@0.1.37':
+  '@types/chrome@0.1.38':
     dependencies:
       '@types/filesystem': 0.0.36
       '@types/har-format': 1.2.16
