@@ -21,7 +21,7 @@
     "@types/js-yaml": "^4.0.9",
     "glob": "^10.5.0",
     "typescript": "^5.9.3",
-    "vite": "^7.2.7"
+    "vite": "^8.0.0"
   },
   "dependencies": {
     "js-yaml": "^4.1.1"
