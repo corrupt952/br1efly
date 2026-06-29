@@ -17,7 +17,7 @@
   "author": "K@zuki.",
   "license": "MIT",
   "devDependencies": {
-    "@types/chrome": "^0.1.32",
+    "@types/chrome": "^0.2.0",
     "@types/js-yaml": "^4.0.9",
     "glob": "^10.5.0",
     "typescript": "^5.9.3",
