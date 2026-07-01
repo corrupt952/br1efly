@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       js-yaml:
-        specifier: ^4.1.1
-        version: 4.2.0
+        specifier: ^5.0.0
+        version: 5.2.0
     devDependencies:
       '@types/chrome':
         specifier: ^0.2.0
@@ -415,8 +415,8 @@ packages:
   jackspeak@3.4.3:
     resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==}
 
-  js-yaml@4.2.0:
-    resolution: {integrity: sha512-ePWsvanv0DWuDRsW8dnt+R4jQ31SCRCQ7hhNcPXZPsoBZiemuZNYGf7adZdqX2D86j6rvKp3RpCxVTSb8WQlOw==}
+  js-yaml@5.2.0:
+    resolution: {integrity: sha512-YeLUMlvR4Ou1B119LIaM0r65JvbOBooJDc9yEu0dClb/uSC5P4FrLU8OCCz/HXWvtPoIrR0dRzABTjo1sTN9Bw==}
     hasBin: true
 
   lightningcss-android-arm64@1.32.0:
@@ -923,7 +923,7 @@ snapshots:
     optionalDependencies:
       '@pkgjs/parseargs': 0.11.0
 
-  js-yaml@4.2.0:
+  js-yaml@5.2.0:
     dependencies:
       argparse: 2.0.1
 
